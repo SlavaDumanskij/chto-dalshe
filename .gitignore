@@ -26,3 +26,9 @@ env/
 .idea/
 .vscode/
 *.swp
+
+logfile
+.env
+__pycache__/
+*.pyc
+venv/
