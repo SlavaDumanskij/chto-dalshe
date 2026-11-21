@@ -12,8 +12,8 @@ export {
 } from 'expo-router';
 
 export const unstable_settings = {
-  // Ensure that reloading on `/modal` keeps a back button present.
-  anchor: '(tabs)',
+  // The two-screen prototype starts at the welcome screen.
+  anchor: 'index',
 };
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -22,6 +22,9 @@ SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
   const [loaded, error] = useFonts({
     SpaceMono: require('../../assets/fonts/SpaceMono-Regular.ttf'),
+    EtudeNoire: require('../../assets/fonts/EtudeNoire-Regular.ttf'),
+    EtudeNoireBold: require('../../assets/fonts/EtudeNoire-Bold.ttf'),
+    BulbasaurSP: require('../../assets/fonts/BulbasaurSP.otf'),
   });
 
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
@@ -48,8 +51,13 @@ function RootLayoutNav() {
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
+        <Stack.Screen name="index" options={{ headerShown: false }} />
+        <Stack.Screen name="interests" options={{ headerShown: false }} />
+        {/* Preserve the team's original screens, but exclude them from this prototype. */}
+        <Stack.Protected guard={false}>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
+        </Stack.Protected>
       </Stack>
     </ThemeProvider>
   );
