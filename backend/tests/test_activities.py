@@ -63,3 +63,8 @@ def test_get_activity_by_id_404():
     response=client.get("/activities/9999")
     assert response.status_code==404
     assert response.json()["detail"]=="Activity with id 9999 not found"
+
+def test_get_activity_by_id_not_found_zero():
+    response=client.get("/activities/0")
+    assert response.status_code==404
+    assert response.json()["detail"]=="Activity with id 0 not found"
