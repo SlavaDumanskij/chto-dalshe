@@ -53,9 +53,8 @@ function RootLayoutNav() {
       <Stack>
         <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="interests" options={{ headerShown: false }} />
-        {/* Preserve the team's original screens, but exclude them from this prototype. */}
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Protected guard={false}>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
         </Stack.Protected>
       </Stack>

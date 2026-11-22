@@ -1,9 +1,9 @@
 import Svg, { Path, Rect } from 'react-native-svg';
 
 // Vector reconstruction from the supplied Figma close-up.
-export function BrandMark() {
+export function BrandMark({ size = 66 }: { size?: number }) {
   return (
-    <Svg width={66} height={66} viewBox="0 0 144 144" aria-hidden={true}>
+    <Svg width={size} height={size} viewBox="0 0 144 144" aria-hidden={true}>
       <Rect width="144" height="144" rx="34" fill="#39396E" />
       <Path
         fill="#E9EBE8"
