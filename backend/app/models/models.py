@@ -1,6 +1,6 @@
 import uuid
 from datetime import datetime
-from sqlalchemy import Column,String,Text,Integer,Boolean,DateTime,ForeignKey,Table
+from sqlalchemy import Column,String,Text,Integer,Boolean,DateTime,ForeignKey,Table,JSON,UniqueConstraint
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 from app.core.database import Base
@@ -16,6 +16,7 @@ class User(Base):
     __tablename__="users"
     id=Column(UUID(as_uuid=True),primary_key=True,default=uuid.uuid4)
     device_id=Column(String(255),unique=True,nullable=True,index=True)
+    last_search_params=Column(JSON,nullable=True)
     created_at=Column(DateTime,default=datetime.utcnow,nullable=False)
     favorites=relationship("Favorite",back_populates="user",cascade="all, delete-orphan")
     recommendations=relationship("RecommendationHistory",back_populates="user",cascade="all, delete-orphan")
@@ -45,6 +46,7 @@ class Activity(Base):
 
 class Favorite(Base):
     __tablename__="favorites"
+    __table_args__=(UniqueConstraint("user_id","activity_id",name="uq_user_activity_favorite"),)
     id=Column(Integer,primary_key=True,autoincrement=True)
     user_id=Column(UUID(as_uuid=True),ForeignKey("users.id",ondelete="CASCADE"),nullable=False,index=True)
     activity_id=Column(Integer,ForeignKey("activities.id",ondelete="CASCADE"),nullable=False)
